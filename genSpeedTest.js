@@ -31,6 +31,9 @@ function makePropIn() {
 function makePropOf() {
 	return 'function(){if(prop[test.type]){return test.type}return "fail"}';
 }
+function makeNoPropOf() {
+	return 'function(){if(prop["NOBODYHOME"]){return test.type}return "fail"}';
+}
 function makeRegex() {
 	return 'function(){if(re.test(test.type)){return test.type}return "fail"}';
 }
@@ -44,6 +47,7 @@ fs.writeSync(fd, 'var switchFn=');makeSwitch(fs,fd);fs.writeSync(fd,';');
 fs.writeSync(fd, 'var notIdxFn=' + makeNotIndexOf() + ';');
 fs.writeSync(fd, 'var propInFn=' + makePropIn() + ';');
 fs.writeSync(fd, 'var propOfFn=' + makePropOf() + ';');
+fs.writeSync(fd, 'var noPropFn=' + makeNoPropOf() + ';');
 fs.writeSync(fd, 'var regexFn=' + makeRegex() + ';');
 fs.writeSync(fd, 'var microtime=require("microtime");var start;');
 //fs.writeSync(fd, 'start=microtime.now();ifFn();console.log("ifTime:",microtime.now()-start);');
@@ -51,5 +55,6 @@ fs.writeSync(fd, 'start=microtime.now();switchFn();console.log("switchTime:",mic
 fs.writeSync(fd, 'start=microtime.now();notIdxFn();console.log("notIdxTime:",microtime.now()-start);');
 fs.writeSync(fd, 'start=microtime.now();propInFn();console.log("propInTime:",microtime.now()-start);');
 fs.writeSync(fd, 'start=microtime.now();propOfFn();console.log("propOfTime:",microtime.now()-start);');
+fs.writeSync(fd, 'start=microtime.now();noPropFn();console.log("noPropOfTime:",microtime.now()-start);');
 fs.writeSync(fd, 'start=microtime.now();regexFn();console.log("regexTime:",microtime.now()-start);');
 fs.closeSync(fd);
